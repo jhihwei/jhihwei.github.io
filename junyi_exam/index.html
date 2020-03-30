@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<title>JunYi Exam</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+<link href="https://fonts.googleapis.com/css?family=Noto+Sans+TC:500&display=swap" rel="stylesheet">
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet"
+  integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<style>
+  body,
+  h1 {
+    font-family: 'Noto Sans TC', sans-serif;
+  }
+
+  body,
+  html {
+    height: 100%
+  }
+
+  .bgimg {
+    background-image: url('bg3.jpg');
+    min-height: 100%;
+    background-position: center;
+    background-size: cover;
+  }
+
+  .w3-animate-top {
+    animation-duration: 1.5s;
+  }
+</style>
+
+<body>
+
+  <div class="bgimg w3-display-container w3-animate-opacity w3-text-white">
+    <div class="w3-display-topleft w3-padding-large w3-xlarge">
+      Django
+    </div>
+    <div class="w3-display-middle">
+      <h1 class="w3-jumbo w3-animate-top">Start Check Examination</h1>
+      <hr class="w3-border-grey" style="margin:auto;width:40%">
+      <p class="w3-large w3-center">單字反轉</p>
+      <div class="input-group mb-3">
+        <input name="q1" type="text" class="form-control" placeholder="輸入句子時，單字順序不便" aria-label="Recipient's username"
+          aria-describedby="basic-addon2">
+        <div class="input-group-append">
+          <button name="q1" class="btn btn-secondary" type="button">Submit</button>
+        </div>
+      </div>
+      <p class="w3-large w3-center">數字篩選</p>
+      <div class="input-group mb-3">
+        <input name="q2" type="text" class="form-control" placeholder="過濾3與5的倍數，但保留本身" aria-label="Recipient's username"
+          aria-describedby="basic-addon2">
+        <div class="input-group-append">
+          <button name="q2" class="btn btn-secondary" type="button">Submit</button>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="exampleFormControlTextarea1">Result</label>
+        <textarea name="result" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+      </div>
+    </div>
+    <div class="w3-display-bottomleft w3-padding-large">
+      This production for exam</a>
+    </div>
+  </div>
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+    integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+    integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous">
+  </script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"
+    integrity="sha384-6khuMg9gaYr5AxOqhkVIODVIvm9ynTT5J4V1cfthmT+emCG6yVmEZsRHdxlotUnm" crossorigin="anonymous">
+  </script>
+  <script>
+    var textarea_result = $('textarea[name="result"]');
+    $('button[name="q1"').on('click', function (event) {
+      value = $('input[name="q1"]').val();
+      textarea_result.val(resver_sentence(value));
+
+    });
+
+    $('button[name="q2"').on('click', function (event) {
+      value = $('input[name="q2"]').val();
+      textarea_result.val(number_filtter(value));
+
+    });
+
+    function resver_word(word) {
+      let length = word.length;
+      let new_string = '';
+      for (var i = 0; i < length; i++) {
+        new_string = new_string + word[length - 1 - i];
+      }
+      return new_string;
+    }
+
+    function resver_sentence(sentence) {
+      sentence = sentence.split(" ");
+      let length = sentence.length;
+      let new_sentence = '';
+      for (var i = 0; i < length; i++) {
+        new_sentence = new_sentence + resver_word(sentence[i]) + ' ';
+      }
+      return new_sentence;
+    }
+
+    function number_filtter(num) {
+      let triple = [];
+      let quintuple = [];
+      let result = [];
+      let keep = [];
+      let nums = array_generator(num);
+      for (let i = 1; i <= num; i++) {
+        if (i % 15 == 0) {
+          keep.push(i);
+        }
+        if (i % 3 == 0 & i % 15 != 0) {
+          triple.push(i);
+        } else if (i % 5 == 0 & i % 15 != 0) {
+          quintuple.push(i);
+        } else {
+          result.push(i);
+        }
+      }
+      return `input：${num}
+      所有的數字是：${nums}
+      其中 ${triple} 被剔除 ${quintuple} 被剔除；但是 ${keep} 被保留 
+      所以剩下來的數字 ${result} 因此
+      Output：${result.length}`;
+    }
+
+    function array_generator(num) {
+      let result = [];
+      for (let i = 1; i <= num; i++) result.push(i);
+      return result;
+    }
+  </script>
+</body>
+
+</html>
